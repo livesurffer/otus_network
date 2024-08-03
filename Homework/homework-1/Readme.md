@@ -9,6 +9,7 @@
 
 ##### Распределение айпи адресов по следущей концепции:
 10.Dn.Sn.X/31:
+
 Dn - номер ЦОДа
 Sn - номер Spine
 X  - значение по порядку
@@ -39,11 +40,9 @@ Dn = 0...7:
 |  Brm-spn-002  | Eth2      | 10.2.2.3/31 | to Brm-leaf-002 |
 |  Brm-spn-002  | Eth3      | 10.2.2.1/31 | to Brm-leaf-002 |
 
-
+#### Схема сети:
 ![Схема сети:](https://github.com/livesurffer/otus_network/blob/main/Homework/homework-1/pics/Laba1.png)
 
-![The San Juan Mountains are beautiful!](Homework\homework-1\pics\Laba1.png)
-![The San Juan Mountains are beautiful!](C:\Users\sabarmin\Desktop\cloud\обучение\otus%ЦОД\vxlan-otus\otus%network%my%project\otus_network\Homework\homework-1\pics\Laba1.png)S
 
 
 
