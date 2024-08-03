@@ -11,12 +11,17 @@
 10.Dn.Sn.X/31:
 
 Dn - номер ЦОДа
+
 Sn - номер Spine
+
 X  - значение по порядку
 
 Dn = 0...7:
+
 0 - loopback 1
+
 2 - p2p links
+
  
 | Hostname      | Interface | IP/mast     | Description     |
 | ------------- | --------- | ----------- | --------------- |
