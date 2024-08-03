@@ -42,6 +42,8 @@ Dn = 0...7:
 
 ![The San Juan Mountains are beautiful!](C:\Users\sabarmin\Desktop\cloud\обучение\otus/ЦОД\vxlan-otus\otus network/my/project\otus_network\Homework\homework-1\pics\Laba1.png)
 
-![The San Juan Mountains are beautiful!](Homework\homework-1\pics\Laba1.png "San Juan Mountains")
+![The San Juan Mountains are beautiful!](Homework\homework-1\pics\Laba1.png)
+![The San Juan Mountains are beautiful!](C:\Users\sabarmin\Desktop\cloud\обучение\otus%ЦОД\vxlan-otus\otus%network%my%project\otus_network\Homework\homework-1\pics\Laba1.png)S
+
 
 
