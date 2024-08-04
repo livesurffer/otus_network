@@ -48,6 +48,8 @@ Dn = 0...7:
 ## Схема сети:
 ![Схема сети:](https://github.com/livesurffer/otus_network/blob/main/Homework/homework-1/pics/Laba1.png)
 
+## Конфигурация:
+
 
 
 
