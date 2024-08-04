@@ -49,7 +49,55 @@
 ![Схема сети:](https://github.com/livesurffer/otus_network/blob/main/Homework/homework-1/pics/Laba1.png)
 
 ## Конфигурация:
-
-
-
+[brm-leaf-001](https://github.com/livesurffer/otus_network/blob/main/Homework/homework-1/config/brm-leaf-001.conf)
+```
+! device: brm-leaf-001 (vEOS-lab, EOS-4.27.3F)
+!
+! boot system flash:/vEOS-lab.swi
+!
+no aaa root
+!
+username admin role network-admin secret sha512 $6$PjXYd6pj7GfJ5Sja$0hUJjT0FDoHBoGG22V8jhadSdlpzmJeBFyHwGA6PtYTjuhQyEcFnr1Fc5EvSxdHcm3csDAlnV6q3KHQENc7o10
+!
+transceiver qsfp default-mode 4x10G
+!
+service routing protocols model ribd
+!
+hostname brm-leaf-001
+!
+spanning-tree mode mstp
+!
+interface Ethernet1
+!
+interface Ethernet2
+   description to Brm-spn-001
+   mtu 9214
+   no switchport
+   ip address 10.2.1.0/31
+!
+interface Ethernet3
+   description to Brm-spn-002
+   mtu 9214
+   no switchport
+   ip address 10.2.2.0/31
+!
+interface Ethernet4
+!
+interface Ethernet5
+!
+interface Ethernet6
+!
+interface Ethernet7
+!
+interface Ethernet8
+!
+interface Loopback1
+   ip address 10.1.0.2/32
+!
+interface Management1
+!
+no ip routing
+!
+end
+````
 
