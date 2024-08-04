@@ -45,7 +45,7 @@ Dn = 0...7:
 |  Brm-spn-002  | Eth2      | 10.2.2.3/31 | to Brm-leaf-002 |
 |  Brm-spn-002  | Eth3      | 10.2.2.1/31 | to Brm-leaf-002 |
 
-#### Схема сети:
+## Схема сети:
 ![Схема сети:](https://github.com/livesurffer/otus_network/blob/main/Homework/homework-1/pics/Laba1.png)
 
 
