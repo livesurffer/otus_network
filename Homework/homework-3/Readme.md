@@ -10,7 +10,7 @@
 ***
 
 ## Схема сети:
-![Схема сети:](https://github.com/livesurffer/otus_network/blob/main/Homework/homework-3/pics/Laba3.png)
+![Схема сети:](https://github.com/livesurffer/otus_network/blob/main/Homework/homework-3/pics/laba3.png)
 
 
 ## Конфигурация:
