@@ -80,7 +80,7 @@ router isis 1
    address-family ipv4 unicast
 !
 end
-````
+```
 
 [brm-leaf-002](https://github.com/livesurffer/otus_network/blob/main/Homework/homework-3/config/brm-leaf-002.conf)
 ```
