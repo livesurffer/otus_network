@@ -1,10 +1,10 @@
 # Домашнее задание №3
 -------
-### Underlay. ISIS.
+### Underlay. eBGP.
 -------
 
 #### Задачи:
-- ###### Настроить BGP для Underlay сети.
+- ###### Настроить eBGP для Underlay сети.
 
 
 
@@ -12,7 +12,7 @@
 ***
 
 ## Схема сети:
-![Схема сети:](https://github.com/livesurffer/otus_network/blob/main/Homework/homework-4/pics/laba4.png)
+![Схема сети:](https://github.com/livesurffer/otus_network/blob/main/Homework/homework-5/pics/laba5.png)
 
 
 ## Конфигурация:
