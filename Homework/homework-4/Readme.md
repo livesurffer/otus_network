@@ -30,13 +30,18 @@ container-manager
 !
 transceiver qsfp default-mode 4x10G
 !
-service routing protocols model ribd
+service routing protocols model multi-agent
 !
 hostname brm-leaf-001
 !
 spanning-tree mode mstp
 !
+vlan 10,20
+!
 interface Ethernet1
+   description to-pc1
+   mtu 9000
+   switchport access vlan 10
 !
 interface Ethernet2
    description to Brm-spn-001
@@ -51,6 +56,9 @@ interface Ethernet3
    ip address 10.2.2.0/31
 !
 interface Ethernet4
+   description to-pc2
+   mtu 9000
+   switchport access vlan 20
 !
 interface Ethernet5
 !
@@ -60,8 +68,6 @@ interface Ethernet7
 !
 interface Ethernet8
 !
-interface Loopback0
-!
 interface Loopback1
    ip address 10.1.0.1/32
 !
@@ -70,22 +76,14 @@ interface Management1
 ip routing
 !
 router bgp 65001
-   neighbor 10.0.1.1 remote-as 65001
-   neighbor 10.0.1.1 update-source Loopback1
-   neighbor 10.0.1.2 remote-as 65001
-   neighbor 10.0.1.2 update-source Loopback1
+   neighbor 10.2.1.1 remote-as 65001
+   neighbor 10.2.2.1 remote-as 65001
    !
    address-family ipv4
-      neighbor 10.0.1.1 activate
-      neighbor 10.0.1.2 activate
+      neighbor 10.2.1.1 activate
+      neighbor 10.2.2.1 activate
       network 10.1.0.1/32
-!
-router ospf 1
-   router-id 10.1.0.1
-   network 10.1.0.1/32 area 0.0.0.0
-   network 10.2.1.0/31 area 0.0.0.0
-   network 10.2.2.0/31 area 0.0.0.0
-   max-lsa 12000
+      redistribute connected
 !
 end
 ```
@@ -102,13 +100,17 @@ username admin role network-admin secret sha512 $6$sBRv.YPgdXkCbIAq$AmTPJGga5Ca1
 !
 transceiver qsfp default-mode 4x10G
 !
-service routing protocols model ribd
+service routing protocols model multi-agent
 !
 hostname brm-leaf-002
 !
 spanning-tree mode mstp
 !
+vlan 10,20
+!
 interface Ethernet1
+   mtu 9000
+   switchport access vlan 20
 !
 interface Ethernet2
    description to Brm-spn-001
@@ -123,6 +125,8 @@ interface Ethernet3
    ip address 10.2.2.2/31
 !
 interface Ethernet4
+   mtu 9000
+   switchport access vlan 10
 !
 interface Ethernet5
 !
@@ -140,23 +144,14 @@ interface Management1
 ip routing
 !
 router bgp 65001
-   router-id 10.1.0.2
-   neighbor 10.0.1.1 remote-as 65001
-   neighbor 10.0.1.1 update-source Loopback1
-   neighbor 10.0.1.2 remote-as 65001
-   neighbor 10.0.1.2 update-source Loopback1
+   neighbor 10.2.1.3 remote-as 65001
+   neighbor 10.2.2.3 remote-as 65001
    !
    address-family ipv4
-      neighbor 10.0.1.1 activate
-      neighbor 10.0.1.2 activate
+      neighbor 10.2.1.3 activate
+      neighbor 10.2.2.3 activate
       network 10.1.0.2/32
-!
-router ospf 1
-   router-id 10.1.0.2
-   network 10.1.0.2/32 area 0.0.0.0
-   network 10.2.1.2/31 area 0.0.0.0
-   network 10.2.2.2/31 area 0.0.0.0
-   max-lsa 12000
+      redistribute connected
 !
 end
 ```
@@ -172,15 +167,22 @@ username admin role network-admin secret sha512 $6$3D/3IbTgVXnuY1hm$kFaYpCLrITQN
 !
 transceiver qsfp default-mode 4x10G
 !
-service routing protocols model ribd
+service routing protocols model multi-agent
 !
 hostname brm-leaf-003
 !
 spanning-tree mode mstp
 !
+vlan 10,20
+!
 interface Ethernet1
+   description to-pc5
+   mtu 9000
+   switchport access vlan 10
 !
 interface Ethernet2
+   mtu 9000
+   switchport access vlan 20
 !
 interface Ethernet3
    description to Brm-spn-002
@@ -210,22 +212,14 @@ interface Management1
 ip routing
 !
 router bgp 65001
-   neighbor 10.0.1.1 remote-as 65001
-   neighbor 10.0.1.1 update-source Loopback1
-   neighbor 10.0.1.2 remote-as 65001
-   neighbor 10.0.1.2 update-source Loopback1
+   neighbor 10.2.1.5 remote-as 65001
+   neighbor 10.2.2.5 remote-as 65001
    !
    address-family ipv4
-      neighbor 10.0.1.1 activate
-      neighbor 10.0.1.2 activate
-      network 10.1.0.3/32
-!
-router ospf 1
-   router-id 10.1.0.3
-   network 10.1.0.3/32 area 0.0.0.0
-   network 10.2.1.4/31 area 0.0.0.0
-   network 10.2.2.4/31 area 0.0.0.0
-   max-lsa 12000
+      neighbor 10.2.1.5 activate
+      neighbor 10.2.2.5 activate
+      network 10.2.1.4/31
+      redistribute connected
 !
 end
 ```
@@ -242,7 +236,7 @@ username admin role network-admin secret sha512 $6$kBN/xxkohsGJpVa2$2CBGF.0uoA10
 !
 transceiver qsfp default-mode 4x10G
 !
-service routing protocols model ribd
+service routing protocols model multi-agent
 !
 hostname brm-spn-001
 !
@@ -250,7 +244,6 @@ spanning-tree mode mstp
 !
 interface Ethernet1
    description to Brm-leaf-001
-   mtu 9000
    no switchport
    ip address 10.2.1.1/31
 !
@@ -284,26 +277,19 @@ interface Management1
 ip routing
 !
 router bgp 65001
-   neighbor 10.1.0.1 remote-as 65001
-   neighbor 10.1.0.1 update-source Loopback1
-   neighbor 10.1.0.2 remote-as 65001
-   neighbor 10.1.0.2 update-source Loopback1
-   neighbor 10.1.0.3 remote-as 65001
-   neighbor 10.1.0.3 update-source Loopback1
+   neighbor 10.2.1.0 remote-as 65001
+   neighbor 10.2.1.0 route-reflector-client
+   neighbor 10.2.1.2 remote-as 65001
+   neighbor 10.2.1.2 route-reflector-client
+   neighbor 10.2.1.4 remote-as 65001
+   neighbor 10.2.1.4 route-reflector-client
    !
    address-family ipv4
-      neighbor 10.1.0.1 activate
-      neighbor 10.1.0.2 activate
-      neighbor 10.1.0.3 activate
+      neighbor 10.2.1.0 activate
+      neighbor 10.2.1.2 activate
+      neighbor 10.2.1.4 activate
       network 10.0.1.1/32
-!
-router ospf 1
-   router-id 10.0.1.1
-   network 10.0.1.1/32 area 0.0.0.0
-   network 10.2.1.0/31 area 0.0.0.0
-   network 10.2.1.2/31 area 0.0.0.0
-   network 10.2.1.4/31 area 0.0.0.0
-   max-lsa 12000
+      redistribute connected
 !
 end
 ```
@@ -321,7 +307,7 @@ username admin role network-admin secret sha512 $6$vpnOT69tbtUiuhiu$FwikzGqSbyGC
 !
 transceiver qsfp default-mode 4x10G
 !
-service routing protocols model ribd
+service routing protocols model multi-agent
 !
 hostname brm-spn-002
 !
@@ -363,26 +349,19 @@ interface Management1
 ip routing
 !
 router bgp 65001
-   neighbor 10.1.0.1 remote-as 65001
-   neighbor 10.1.0.1 update-source Loopback1
-   neighbor 10.1.0.2 remote-as 65001
-   neighbor 10.1.0.2 update-source Loopback1
-   neighbor 10.1.0.3 remote-as 65001
-   neighbor 10.1.0.3 update-source Loopback1
+   neighbor 10.2.1.0 route-reflector-client
+   neighbor 10.2.1.2 route-reflector-client
+   neighbor 10.2.1.4 route-reflector-client
+   neighbor 10.2.2.0 remote-as 65001
+   neighbor 10.2.2.2 remote-as 65001
+   neighbor 10.2.2.4 remote-as 65001
    !
    address-family ipv4
-      neighbor 10.1.0.1 activate
-      neighbor 10.1.0.2 activate
-      neighbor 10.1.0.3 activate
+      neighbor 10.2.2.0 activate
+      neighbor 10.2.2.2 activate
+      neighbor 10.2.2.4 activate
       network 10.0.1.2/32
-!
-router ospf 1
-   router-id 10.0.1.2
-   network 10.0.1.2/32 area 0.0.0.0
-   network 10.2.2.0/31 area 0.0.0.0
-   network 10.2.2.2/31 area 0.0.0.0
-   network 10.2.2.4/31 area 0.0.0.0
-   max-lsa 12000
+      redistribute connected
 !
 end
 ```
@@ -397,20 +376,21 @@ brm-spn-001#sh ip bgp su
 BGP summary information for VRF default
 Router identifier 10.0.1.1, local AS number 65001
 Neighbor Status Codes: m - Under maintenance
-  Neighbor         V  AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc
-  10.1.0.1         4  65001            642       642    0    0 10:37:43 Estab   1      1
-  10.1.0.2         4  65001             25        25    0    0 00:20:35 Estab   1      1
-  10.1.0.3         4  65001            642       642    0    0 10:37:21 Estab   1      1
+  Neighbor V AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc
+  10.2.1.0 4 65001             88        89    0    0 01:05:53 Estab   3      3
+  10.2.1.2 4 65001             85        87    0    0 01:03:51 Estab   3      3
+  10.2.1.4 4 65001             81        86    0    0 01:02:05 Estab   3      3
+
 ```
 
 - brm-spn-002:
 ```
-brm-spn-002#sh ip bgp summary
+brm-spn-002#sh ip bgp su
 BGP summary information for VRF default
 Router identifier 10.0.1.2, local AS number 65001
 Neighbor Status Codes: m - Under maintenance
-  Neighbor         V  AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc
-  10.1.0.1         4  65001            645       645    0    0 10:40:08 Estab   1      1
-  10.1.0.2         4  65001             26        26    0    0 00:21:34 Estab   1      1
-  10.1.0.3         4  65001            647       647    0    0 10:42:03 Estab   1      1
+  Neighbor V AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc
+  10.2.2.0 4 65001             80        80    0    0 01:01:06 Estab   3      3
+  10.2.2.2 4 65001             83        81    0    0 01:01:12 Estab   3      3
+  10.2.2.4 4 65001             83        83    0    0 01:01:17 Estab   3      3
 ```
