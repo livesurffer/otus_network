@@ -460,3 +460,32 @@ router ospf 1
 end
 
 ```
+
+
+
+******
+
+## Результаты:
+
+
+- Linux3:
+```
+Linux3(config)#sh lacp interface
+State: A = Active, P = Passive; S=ShortTimeout, L=LongTimeout;
+       G = Aggregable, I = Individual; s+=InSync, s-=OutOfSync;
+       C = Collecting, X = state machine expired,
+       D = Distributing, d = default neighbor state
+             |                        Partner                            Actor
+Port Status  | Sys-id                  Port#  State    OperKey  PortPri  Port#
+---- --------|------------------------ ------ -------- -------- -------- ------
+Port Channel Port-Channel1:
+Et1  Bundled | 8000,11-11-11-11-11-11      2  ALGs+CD   0x0001    32768      1
+Et2  Bundled | 8000,11-11-11-11-11-11      2  ALGs+CD   0x0001    32768      2
+
+                    |                 Actor
+ Port      Status   |  State       OperKey     PortPriority   TimeoutMultiplier
+------- ------------|----------- ----------- ---------------- -----------------
+Port Channel Port-Channel1:
+ Et1       Bundled  |  ALGs+CD      0x0001            32768
+ Et2       Bundled  |  ALGs+CD      0x0001            32768
+```
