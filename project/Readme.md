@@ -31,6 +31,7 @@
 В каждом дата-центре создаются VLAN'ы для клиента и для связи между устройствами. Также создается VRF для изоляции маршрутов клиента.
 vlan 100,1110,1120
 
+```
 vrf instance CUSTOMERS
 
 interface Vlan100
@@ -71,9 +72,13 @@ interface Ethernet2
    mtu 9214
    channel-group 2 mode active
 
+   ```
+
 3. Настройка BGP:
 
 BGP настраивается для обмена маршрутами между дата-центрами. В этом процессе используются маршрутные карты для фильтрации префиксов.
+
+```
 ip prefix-list CLIENT_NET seq 5 permit 172.16.0.0/23
 
 route-map CLIENT_NET permit 10
@@ -94,9 +99,14 @@ router bgp 4200100101
       bgp listen range 169.254.1.0/29 peer-group CUSTOMERS peer-filter LEAF
       redistribute connected route-map CLIENT_NET
 
+```
+
 4. Настройка VxLAN EVPN:
 
+
 VxLAN EVPN настраивается для обеспечения виртуализации сети и сегментации трафика.
+
+```
 interface Loopback1
    description vtep
    ip address 10.1.1.10/32
@@ -111,9 +121,13 @@ ip prefix-list LOOPBACKS seq 5 permit 10.1.1.0/24 eq 32
 route-map LOOPBACKS permit 10
    match ip address prefix-list LOOPBACKS
 
+```
+
 5. Настройка SPINE-коммутаторов:
 
 SPINE-коммутаторы используются для пересылки трафика и обеспечения связи между LEAF-коммутаторами.
+
+```
 interface Loopback0
    description router-id
    ip address 10.1.2.1/32
@@ -122,9 +136,13 @@ interface Loopback0
 route-map LOOPBACKS permit 10
    match ip address prefix-list LOOPBACKS
 
+```
+
 6. Настройка BORDER-коммутаторов:
 
 BORDER-коммутаторы управляют входящими и исходящими маршрутами, обеспечивая связь с внешними сетями.
+
+```
 interface Loopback0
    description router-id
    ip address 10.1.3.1/32
@@ -142,7 +160,8 @@ ip prefix-list LOOPBACKS seq 10 permit 10.1.3.0/24 eq 32
 
 route-map LOOPBACKS permit 10
    match ip address prefix-list LOOPBACKS
-
+   
+```
 #### Проверка и тестирование
 
 После завершения настройки важно провести проверку работоспособности сети. Это включает:
@@ -154,3 +173,4 @@ route-map LOOPBACKS permit 10
 Проверка BGP и таблиц маршрутизации на гипервизорах должна подтвердить успешное установление маршрутов между дата-центрами и корректное распределение трафика.
 
 Проект по созданию сетевой фабрики на основе VxLAN EVPN успешно выполнен, обеспечивая надежную и отказоустойчивую связь между дата-центрами, а также безопасность и изоляцию клиентских данных.
+
