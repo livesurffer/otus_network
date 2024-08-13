@@ -506,7 +506,7 @@ end
 
 ```
 
-# Host1
+### Host1
 ```
 h1> sh ip
 
@@ -521,7 +521,7 @@ MTU         : 1500
 
 ```
 
-# Host2
+### Host2
 ```
 h2> sh ip
 
@@ -538,7 +538,7 @@ MTU         : 1500
 ```
 
 
-# Host3
+### Host3
 ```
 h3> sh ip
 
@@ -553,7 +553,7 @@ MTU         : 1500
 ```
 
 
-# Host4
+### Host4
 ```
 h4> sh ip
 
@@ -570,7 +570,7 @@ MTU         : 1500
 
 ## ПРоверка связности:
 
-# brm-fw-001
+### brm-fw-001
 ```
 brm-fw-001(config)#sh ip bgp su
 BGP summary information for VRF default
@@ -582,7 +582,7 @@ Neighbor Status Codes: m - Under maintenance
 
 ```
 
-# brm-br-002
+### brm-br-002
 ``` 
 brm-br-002#sh bgp evpn
 BGP routing table information for VRF default
@@ -605,7 +605,7 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 
 ```
 
-## Связность между Hosts:
+### Связность между Hosts:
 ```
 h1> ping 192.168.0.3
 
